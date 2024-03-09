@@ -18,13 +18,13 @@ export const useSwipe = (threshold: number): UseSwipeReturnType => {
 		const xRatio = (e.nativeEvent.pageX - start.current[0]) / threshold;
 		const yRatio = (e.nativeEvent.pageY - start.current[1]) / threshold;
 		const result = ((): typeof swipe => {
-			if (Math.abs(xRatio) >= 1) {
-				return { direction: xRatio < 0 ? Direction.UP : Direction.DOWN, value: e.nativeEvent.pageX - start.current[0] };
-			}
 			if (Math.abs(yRatio) >= 1) {
+				return { direction: yRatio < 0 ? Direction.UP : Direction.DOWN, value: e.nativeEvent.pageY - start.current[1] };
+			}
+			if (Math.abs(xRatio) >= 1) {
 				return {
-					direction: yRatio < 0 ? Direction.LEFT : Direction.RIGHT,
-					value: e.nativeEvent.pageY - start.current[1]
+					direction: xRatio < 0 ? Direction.LEFT : Direction.RIGHT,
+					value: e.nativeEvent.pageX - start.current[0]
 				};
 			}
 		})();
