@@ -7,8 +7,8 @@ export const Board = ({ cells }: BoardProps): JSX.Element => {
 	return (
 		<View style={styles.board}>
 			<View style={styles.wrapper}>
-				{cells.map((cell, i) => (
-					<Cell key={i} entity={cell} />
+				{cells.map((cell) => (
+					<Cell key={Date.now() + Math.random() * 100} entity={cell} />
 				))}
 			</View>
 		</View>
