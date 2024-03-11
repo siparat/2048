@@ -6,6 +6,7 @@ import { BoardEntity } from './entities/Board.entity';
 import { Button } from 'react-native';
 import { Direction } from './enums/directions.enum';
 import { SwipeState } from './interfaces/swipe.interface';
+import { AppContextProvider } from './context/app.context';
 
 export default function App(): JSX.Element {
 	const [cells, setCells] = useState<CellEntity[]>([]);
@@ -21,12 +22,14 @@ export default function App(): JSX.Element {
 	}, [swipe]);
 
 	return (
-		<Layout>
-			<Button onPress={() => setSwipe({ value: 0, direction: Direction.UP })} title="вверх" />
-			<Button onPress={() => setSwipe({ value: 0, direction: Direction.RIGHT })} title="вправо" />
-			<Button onPress={() => setSwipe({ value: 0, direction: Direction.DOWN })} title="вниз" />
-			<Button onPress={() => setSwipe({ value: 0, direction: Direction.LEFT })} title="влево" />
-			<Board cells={cells} />
-		</Layout>
+		<AppContextProvider>
+			<Layout>
+				<Button onPress={() => setSwipe({ value: 0, direction: Direction.UP })} title="вверх" />
+				<Button onPress={() => setSwipe({ value: 0, direction: Direction.RIGHT })} title="вправо" />
+				<Button onPress={() => setSwipe({ value: 0, direction: Direction.DOWN })} title="вниз" />
+				<Button onPress={() => setSwipe({ value: 0, direction: Direction.LEFT })} title="влево" />
+				<Board cells={cells} />
+			</Layout>
+		</AppContextProvider>
 	);
 }
