@@ -6,7 +6,7 @@ export class StorageService {
 	store: Pick<typeof localStorage, 'getItem' | 'setItem'>;
 
 	constructor() {
-		this.store = typeof window == 'object' ? localStorage : SecureStore;
+		this.store = typeof localStorage == 'object' ? localStorage : SecureStore;
 	}
 
 	save(key: string, value: string): void {
