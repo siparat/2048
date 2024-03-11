@@ -52,7 +52,7 @@ module.exports = {
 				bracketSameLine: true,
 				arrowParens: 'always',
 				parser: 'typescript',
-				endOfLine: 'lf'
+				endOfLine: 'auto'
 			}
 		]
 	}
