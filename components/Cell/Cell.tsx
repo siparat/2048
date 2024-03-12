@@ -4,8 +4,8 @@ import styles from './Cell.styles';
 import { useState, useEffect } from 'react';
 
 export const Cell = ({ entity }: CellProps): JSX.Element => {
-	const [left, setLeft] = useState(entity.beforePosition[0]);
-	const [top, setTop] = useState(entity.beforePosition[1]);
+	const [left, setLeft] = useState(entity.position[0] * 81);
+	const [top, setTop] = useState(entity.position[1] * 81);
 
 	useEffect(() => {
 		const position = entity.position;

@@ -1,5 +1,5 @@
+import { cellConfig } from '../configs/cell.config';
 import { CellOptions } from '../interfaces/cell.interface';
-import { cellConfig } from '../configs/Cell.config';
 
 export class CellEntity {
 	private _position: [x: number, y: number];

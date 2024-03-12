@@ -1,34 +1,29 @@
+import { StatusBar } from 'expo-status-bar';
+import { AppContextProvider } from './contexts/app.context';
 import { Layout } from './layout/Layout';
-import { Board } from './components';
-import { useEffect, useRef, useState } from 'react';
-import { CellEntity } from './entities/Cell.entity';
-import { BoardEntity } from './entities/Board.entity';
-import { Button } from 'react-native';
-import { Direction } from './enums/directions.enum';
-import { SwipeState } from './interfaces/swipe.interface';
-import { AppContextProvider } from './context/app.context';
+import { Game, Lose, Start } from './screens';
+import { useState } from 'react';
+import { GameStage } from './interfaces/game.interface';
 
 export default function App(): JSX.Element {
-	const [cells, setCells] = useState<CellEntity[]>([]);
-	const board = useRef(new BoardEntity(cells, setCells)).current;
-	const [swipe, setSwipe] = useState<SwipeState>();
+	const [stage, setStage] = useState<GameStage>('start');
 
-	useEffect(() => {
-		board.createCell().createCell().update();
-	}, []);
-
-	useEffect(() => {
-		swipe && board.move(swipe.direction).update();
-	}, [swipe]);
+	const getScreen = (stage: GameStage): JSX.Element => {
+		switch (stage) {
+			case 'game':
+				return <Game />;
+			case 'lose':
+				return <Lose />;
+			default:
+				return <Start />;
+		}
+	};
 
 	return (
-		<AppContextProvider>
+		<AppContextProvider setStage={setStage}>
 			<Layout>
-				<Button onPress={() => setSwipe({ value: 0, direction: Direction.UP })} title="вверх" />
-				<Button onPress={() => setSwipe({ value: 0, direction: Direction.RIGHT })} title="вправо" />
-				<Button onPress={() => setSwipe({ value: 0, direction: Direction.DOWN })} title="вниз" />
-				<Button onPress={() => setSwipe({ value: 0, direction: Direction.LEFT })} title="влево" />
-				<Board cells={cells} />
+				<StatusBar hidden />
+				{getScreen(stage)}
 			</Layout>
 		</AppContextProvider>
 	);

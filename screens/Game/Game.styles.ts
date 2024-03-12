@@ -1,13 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { Color } from '../constants/color.constants';
 
 export default StyleSheet.create({
-	layout: {
-		width: '100%',
+	wrapper: {
 		height: '100%',
-		backgroundColor: Color.BACKGROUND,
 		display: 'flex',
+		alignItems: 'center',
 		justifyContent: 'center',
-		alignItems: 'center'
+		gap: 50
 	}
 });

@@ -1,11 +1,12 @@
 import { Dispatch, SetStateAction } from 'react';
 import { Direction } from '../enums/directions.enum';
-import { CellEntity } from './Cell.entity';
+import { CellEntity } from './cell.entity';
 
 export class BoardEntity {
 	constructor(
 		private cells: CellEntity[],
-		private setCells: Dispatch<SetStateAction<CellEntity[]>>
+		private setCells: Dispatch<SetStateAction<CellEntity[]>>,
+		private setScore: Dispatch<SetStateAction<number>> | undefined
 	) {}
 
 	get freePositions(): [number, number][] {
@@ -42,6 +43,7 @@ export class BoardEntity {
 					const collidedCell = this.cells.find((c) => c.position[0] === newPos[0] && c.position[1] === newPos[1]);
 
 					if (collidedCell && collidedCell.value === cell.value) {
+						this.setScore && this.setScore((score) => score + collidedCell.value);
 						collidedCell.value *= 2;
 						this.destroyCell(cell);
 					}
@@ -76,7 +78,7 @@ export class BoardEntity {
 	}
 
 	update(): void {
-		this.setCells(this.cells);
+		this.setCells([...this.cells]);
 	}
 
 	private withinBounds(position: [number, number]): boolean {
